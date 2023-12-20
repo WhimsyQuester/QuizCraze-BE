@@ -1,0 +1,121 @@
+package com.whimsyquester.entity.vo.app;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
+import org.springframework.format.annotation.DateTimeFormat;
+
+import java.io.Serializable;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.util.Date;
+import java.util.List;
+
+/**
+ * @Project: QuizCraze-BE
+ * @Package: com.whimsyquester.entity.vo.app
+ * @ClassName: AppExamVO
+ * @Datetime: 2023/11/19 23:14
+ * @Author: HuangRongQuan
+ * @Email: rongquanhuang01@gmail.com
+ * @Description: 表示用户在线考试的相关信息
+ */
+
+public class AppExamVO implements Serializable {
+
+
+    /**
+     * 自增ID
+     */
+    private Integer examId;
+
+    /**
+     * 创建时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date createTime;
+
+    /**
+     * 开始时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date startTime;
+
+    /**
+     * 结束时间
+     */
+    @JsonFormat(pattern = "yyyy-MM-dd HH:mm:ss", timezone = "GMT+8")
+    @DateTimeFormat(pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date endTime;
+
+    /**
+     * 0:未完成 1:已完成
+     */
+    private Integer status;
+
+    /**
+     * 用时分钟
+     */
+    private BigDecimal useTimeMin;
+    private List<ExamQuestionVO> examQuestionList;
+
+    public BigDecimal getUseTimeMin() {
+        if (endTime != null && startTime != null) {
+            return new BigDecimal(endTime.getTime() - startTime.getTime()).divide(new BigDecimal(1000 * 60), 2, RoundingMode.HALF_UP);
+        }
+        return new BigDecimal(0);
+    }
+
+    public void setUseTimeMin(BigDecimal useTimeMin) {
+        this.useTimeMin = useTimeMin;
+    }
+
+    public Integer getExamId() {
+        return examId;
+    }
+
+    public void setExamId(Integer examId) {
+        this.examId = examId;
+    }
+
+    public Date getCreateTime() {
+        return createTime;
+    }
+
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
+    }
+
+    public Date getStartTime() {
+        return startTime;
+    }
+
+    public void setStartTime(Date startTime) {
+        this.startTime = startTime;
+    }
+
+    public Date getEndTime() {
+        return endTime;
+    }
+
+    public void setEndTime(Date endTime) {
+        this.endTime = endTime;
+    }
+
+    public Integer getStatus() {
+        return status;
+    }
+
+    public void setStatus(Integer status) {
+        this.status = status;
+    }
+
+    public List<ExamQuestionVO> getExamQuestionList() {
+        return examQuestionList;
+    }
+
+    public void setExamQuestionList(List<ExamQuestionVO> examQuestionList) {
+        this.examQuestionList = examQuestionList;
+    }
+}
+
